@@ -1,0 +1,32 @@
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+ 
+/**
+ * class MY_Controller
+ * @author zay yar
+ * 1/28/2010
+ */
+
+class MY_Controller extends CI_Controller
+{
+
+	public function __construct()
+	{
+		parent::__construct();
+		
+		
+	}
+
+	public function __destruct()
+	{
+	}
+
+	function _is_xhr()
+	{
+	  return @ $_SERVER[ 'HTTP_X_REQUESTED_WITH' ] === 'XMLHttpRequest';
+	}
+
+
+} // end of class
+
+/* End of file MY_Controller.php */
+/* Location: ./jnbk_office_applications/libraries/MY_Controller.php */

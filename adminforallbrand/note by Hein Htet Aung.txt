@@ -1,0 +1,316 @@
+issue (1){
+	jquery code for keyup enter event
+	
+	$( "#brand" ).keyup(function(e) {
+		if(e.which == 13){
+			alert("ei");
+		}
+	});
+	
+	angular code
+	
+	ng-keyup="checkenter($event)"
+	
+	$scope.checkenter = function(e){
+		if(e.keyCode==13){
+			$scope.savedata();
+			$scope.brand_name  =  "";
+			$('#brand').focusout();
+		}
+	}
+}
+
+issue(2){	//adding alert box success warning
+	$( "#successbox" ).fadeIn();
+	$( "#successbox" ).delay(500).fadeOut( "slow" );
+	
+	
+	.alertbox{				//connect style with this class
+		z-index: 99999;
+		position: absolute;
+		width: 100%;
+		position: absolute;
+		top: 2px;
+		left: -0.1px; 
+		display:none;
+	}
+}
+
+
+issue(3){		// slide up slide down
+	$(document).ready(function(){
+		$("#flip").click(function(){
+			$("#panel").slideDown("fast");
+			return false;
+		});
+		$('#cancel').click(function(){
+			$("#panel").slideUp("fast");
+			return false;	
+		});
+	});
+}
+
+
+issue(4){		//updating multiple select plugin
+	$('#brand_ids').val([]).trigger("change");
+}
+
+issue(5){		//php code for convert string to array if see space
+
+	$arr=array();
+	$i=0;
+	foreach($brand_ids as $b){
+		$a = explode("|", $b);
+		$arr[$i]['brand_id']=$a[0];
+		$arr[$i]['brand_name']=$a[1];
+		$i++;
+	}
+	$brand_ids=json_encode($arr);
+	
+	//refrences ----- http://php.net/manual/en/function.explode.php
+}
+
+issue(6){		// code to handle error Error: [$rootScope:inprog] $digest already in progress				
+	
+	Error: [$rootScope:inprog] $digest already in progress
+	http://errors.angularjs.org/1.3.15/$rootScope/inprog?p0=%24digest
+	minErr/<@http://localhost/adminforallbrand/assets/angularjs/angular.js:125:12
+	beginPhase@http://localhost/adminforallbrand/assets/angularjs/angular.js:29639:1
+	$RootScopeProvider/this.$get</Scope.prototype.$apply@http://localhost/adminforallbrand/assets/angularjs/angular.js:29127:11
+	setupAsMultiple/<@http://localhost/adminforallbrand/assets/angularjs/angular.js:51543:11
+	n.event.dispatch@http://localhost/adminforallbrand/assets/jquery.min.js:3:6414
+	n.event.add/r.handle@http://localhost/adminforallbrand/assets/jquery.min.js:3:3224
+	n.event.trigger@http://localhost/adminforallbrand/assets/jquery.min.js:3:5572
+	.trigger/<@http://localhost/adminforallbrand/assets/jquery.min.js:3:11534
+	.each@http://localhost/adminforallbrand/assets/jquery.min.js:2:2880
+	n.prototype.each@http://localhost/adminforallbrand/assets/jquery.min.js:2:845
+	.trigger@http://localhost/adminforallbrand/assets/jquery.min.js:3:11513
+	$scope.savedata/<@http://localhost/adminforallbrand/assets/app/clientapp.js:301:5
+	$http/promise.success/<@http://localhost/adminforallbrand/assets/angularjs/angular.js:18815:11
+	processQueue@http://localhost/adminforallbrand/assets/angularjs/angular.js:26495:27
+	scheduleProcessQueue/<@http://localhost/adminforallbrand/assets/angularjs/angular.js:26527:27
+	$RootScopeProvider/this.$get</Scope.prototype.$eval@http://localhost/adminforallbrand/assets/angularjs/angular.js:28931:16
+	$RootScopeProvider/this.$get</Scope.prototype.$digest@http://localhost/adminforallbrand/assets/angularjs/angular.js:28563:15
+	$RootScopeProvider/this.$get</Scope.prototype.$apply@http://localhost/adminforallbrand/assets/angularjs/angular.js:29141:13
+	done@http://localhost/adminforallbrand/assets/angularjs/angular.js:19395:36
+	completeRequest@http://localhost/adminforallbrand/assets/angularjs/angular.js:19775:7
+	requestLoaded@http://localhost/adminforallbrand/assets/angularjs/angular.js:19657:1
+
+	$timeout(function() {
+		$('#brand_ids').val([]).trigger("change");		// select 2 plugin deselect code
+	}, 0);
+
+}
+
+
+
+issue(7){	// show data json in view with angular js code 
+	
+	<td class="editable brand_idstxt" ng-init="bs=getbs(datas.brand_ids)"><span class="label label-info" ng-repeat="b in bs">{{b.brand_name}}</span></td>		// in view
+	
+	$scope.getbs = function(brand_ids){
+		var str = brand_ids;
+		var jsonObj = JSON.parse(str);
+		var returnstr="";
+		return jsonObj;
+	}
+
+}
+
+issue(8){		// select 2 plugin append code use in edit
+	$('#brand_ids'+user_id).select2();
+}
+
+
+issue(9){		// javascript code for array sort
+	brand_ids.sort(function(a, b){return a-b});
+	
+	// refrences ------ http://www.w3schools.com/jsref/jsref_sort.asp
+}
+
+
+issue(10){		// javascript code for in array remove duplicate item
+	var uniquebrand_ids = [];
+	$.each(brand_ids, function(i, el){
+		if($.inArray(el, uniquebrand_ids) === -1) uniquebrand_ids.push(el);
+	});
+	
+	//refrences	------ http://stackoverflow.com/questions/9229645/remove-duplicates-from-javascript-array
+}
+
+issue(11){		//angular js for routing with paramater
+
+	<a href="http://localhost/adminforallbrand/#/news/46">News</a>
+	
+	.when('/news', {						//no para
+		templateUrl : baseurl+'News/',
+		controller  : 'newscontroller'
+	})
+	
+	.when('/news/:brand_id', {				//with para
+		templateUrl : baseurl+'News/',
+		controller  : 'newscontroller'
+	})
+	
+	listApp.controller('newscontroller', function ($scope, $controller, $http, filterFilter, commonfunctions, Scopes, $rootScope, $timeout, $routeParams) {
+		
+		$scope.para_brand_id = $routeParams.brand_id; //alert($scope.brand_id);
+	
+	});
+
+}
+
+
+
+issue(12){			// angular js code for change location use in login authentication
+
+	var url=$location.path();
+	if(url!="/language" && url!="/"){
+		var changeurl=url+'/'+h;
+		$location.path( changeurl );
+	}
+
+}
+
+
+issue(13){			// php code for move file
+
+	rename("./userupload/".$data->arr->post_img, "./userupload/".$data->brand."/".$data->arr->post_img);
+
+}
+
+
+issue(14){	//jquery code for get selected option text
+
+	https://learn.jquery.com/using-jquery-core/faq/how-do-i-get-the-text-value-of-a-selected-option/
+	$( "#myselect option:selected" ).text();
+}
+
+
+issue(15){ 		// code for virtual host in local 
+
+
+[1/20/2016 9:30:59 AM] Nyi Thway @ Tony: admin.sbparts.loc
+[1/20/2016 9:31:10 AM] Nyi Thway @ Tony: sbparts
+[1/20/2016 9:31:40 AM] Nyi Thway @ Tony: Apache2.2.21\conf\httpd.conf
+[1/20/2016 9:31:41 AM] Nyi Thway @ Tony: Include conf/extra/httpd-vhosts.conf
+[1/20/2016 9:31:49 AM] Nyi Thway @ Tony: ------------------
+[1/20/2016 9:31:49 AM] Nyi Thway @ Tony: Apache2.2.21\conf\extra\httpd-vhosts.conf
+[1/20/2016 9:32:52 AM] Nyi Thway @ Tony: #admin.sbpart.loc
+
+<VirtualHost *:80>
+        DocumentRoot "C:/wamp/www/adminforallbrand"
+        ServerName admin.sbpart.loc
+        ServerAlias admin.sbpart.loc
+        ErrorLog "logs/jnbk-error.log"
+        CustomLog "logs/jnbk-access.log" common
+        <Directory "C:/wamp/www/adminforallbrand">
+            Options FollowSymLinks
+            AllowOverride All
+            Order allow,deny
+            Allow from all
+        </Directory>
+</VirtualHost>
+
+#admin.jikiu.loc
+<VirtualHost *:80>
+        DocumentRoot "C:/wamp/www/adminforallbrand"
+        ServerName admin.jikiu.loc
+        ServerAlias admin.jikiu.loc
+        ErrorLog "logs/jnbk-error.log"
+        CustomLog "logs/jnbk-access.log" common
+        <Directory "C:/wamp/www/adminforallbrand">
+            Options FollowSymLinks
+            AllowOverride All
+            Order allow,deny
+            Allow from all
+        </Directory>
+</VirtualHost>
+[1/20/2016 9:34:00 AM] Nyi Thway @ Tony: C:/wamp/www/adminforallbrand
+[1/20/2016 9:34:14 AM] Nyi Thway @ Tony: C:\Windows\System32\drivers\etc\hosts
+[1/20/2016 9:34:37 AM] Nyi Thway @ Tony: 
+127.0.0.1  admin.sbparts.loc
+127.0.0.1  admin.jikiu.loc
+[1/20/2016 9:34:52 AM | Edited 9:35:12 AM] Nyi Thway @ Tony: http://admin.sbparts.loc
+http://admin.jikiu.loc
+
+
+
+
+
+#admin.sbpart.loc
+<VirtualHost *:80>
+        DocumentRoot "D:/xampp/htdocs/adminforallbrand"
+        ServerName admin.sbpart.loc
+        ServerAlias admin.sbpart.loc
+        ErrorLog "logs/jnbk-error.log"
+        CustomLog "logs/jnbk-access.log" common
+        <Directory "D:/xampp/htdocs/adminforallbrand">
+            Options FollowSymLinks
+            AllowOverride All
+            Order allow,deny
+            Allow from all
+        </Directory>
+</VirtualHost>
+
+#admin.jikiu.loc
+<VirtualHost *:80>
+        DocumentRoot "D:/xampp/htdocs/adminforallbrand"
+        ServerName admin.jikiu.loc
+        ServerAlias admin.jikiu.loc
+        ErrorLog "logs/jnbk-error.log"
+        CustomLog "logs/jnbk-access.log" common
+        <Directory "D:/xampp/htdocs/adminforallbrand">
+            Options FollowSymLinks
+            AllowOverride All
+            Order allow,deny
+            Allow from all
+        </Directory>
+</VirtualHost>
+
+#admin.nibk.loc
+<VirtualHost *:80>
+        DocumentRoot "D:/xampp/htdocs/adminforallbrand"
+        ServerName admin.nibk.loc
+        ServerAlias admin.nibk.loc
+        ErrorLog "logs/jnbk-error.log"
+        CustomLog "logs/jnbk-access.log" common
+        <Directory "D:/xampp/htdocs/adminforallbrand">
+            Options FollowSymLinks
+            AllowOverride All
+            Order allow,deny
+            Allow from all
+        </Directory>
+</VirtualHost>
+
+#admin.jnbk.loc
+<VirtualHost *:80>
+        DocumentRoot "D:/xampp/htdocs/adminforallbrand"
+        ServerName admin.jnbk.loc
+        ServerAlias admin.jnbk.loc
+        ErrorLog "logs/jnbk-error.log"
+        CustomLog "logs/jnbk-access.log" common
+        <Directory "D:/xampp/htdocs/adminforallbrand">
+            Options FollowSymLinks
+            AllowOverride All
+            Order allow,deny
+            Allow from all
+        </Directory>
+</VirtualHost>
+
+<VirtualHost *:80>
+        DocumentRoot "D:/xampp/htdocs/adminforallbrand"
+        ServerName admin.jsfilter.loc
+        ServerAlias admin.jsfilter.loc
+        ErrorLog "logs/jnbk-error.log"
+        CustomLog "logs/jnbk-access.log" common
+        <Directory "D:/xampp/htdocs/adminforallbrand">
+            Options FollowSymLinks
+            AllowOverride All
+            Order allow,deny
+            Allow from all
+        </Directory>
+</VirtualHost>
+
+
+}
